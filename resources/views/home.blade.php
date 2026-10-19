@@ -26,13 +26,14 @@
 
     <main>
         <x-hero />
+        <x-service />
         {{-- <x-skills />
         <x-projects />
         <x-experience />
         <x-contact /> --}}
     </main>
 
-    {{-- <x-footer /> --}}
+    <x-footer />
 
 </body>
 </html>
