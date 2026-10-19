@@ -7,7 +7,7 @@
             <div>
                 <p class="text-sm font-medium text-sky-500 tracking-widest uppercase mb-4">Available for work</p>
                 <h1 class="font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-zinc-900 dark:text-white mb-6">
-                    Hi, I'm <span class="text-sky-500">Ong Azis Saliem</span>
+                    Hi, I'm <br><span class="text-sky-500">Ong Azis Saliem</span>
                 </h1>
                 <p class="text-lg md:text-xl text-zinc-500 dark:text-zinc-400 font-light leading-relaxed max-w-md mb-10">
                     I build fast, clean, &amp; accessible digital products as well as hardware-integrated systems.

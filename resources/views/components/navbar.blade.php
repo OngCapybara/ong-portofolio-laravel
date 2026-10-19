@@ -1,7 +1,7 @@
 <header
     x-data="{
         scrolled: false,
-        isDark: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
+        isDark: document.documentElement.classList.contains('dark'),
         activeSection: '',
         toggleDarkMode() {
             this.isDark = !this.isDark;
@@ -15,7 +15,6 @@
         }
     }"
     x-init="
-        if (isDark) document.documentElement.classList.add('dark');
         window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 });
     "
     :class="scrolled
@@ -23,7 +22,7 @@
         : 'bg-transparent h-20'"
     class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
 >
-    <nav class="max-w-6xl mx-auto px-6 h-full flex items-center justify-between" aria-label="Main navigation">
+    <nav class="max-w-6xl mx-auto px-6 pt-6 h-full flex items-center justify-between" aria-label="Main navigation">
 
         <!-- Brand / Logo -->
         <a
@@ -99,21 +98,17 @@
                 @click="toggleDarkMode()"
                 type="button"
                 class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors text-zinc-700 dark:text-zinc-300"
-                :aria-label="isDark ? 'Light mode' : 'Dark mode'"
+                :aria-label="isDark ? 'Switch to Light mode' : 'Switch to Dark mode'"
             >
-                <!-- Ikon Matahari (Dark Mode Active) -->
-                <template x-if="isDark">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
-                    </svg>
-                </template>
+                <!-- Ikon Matahari (Tampil saat Dark Mode Aktif -> Klik untuk Siang) -->
+                <svg x-show="isDark" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+                </svg>
 
-                <!-- Ikon Bulan (Light Mode Active) -->
-                <template x-if="!isDark">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-                    </svg>
-                </template>
+                <!-- Ikon Bulan (Tampil saat Light Mode Aktif -> Klik untuk Malam) -->
+                <svg x-show="!isDark" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                </svg>
             </button>
 
             <!-- Tombol Hire Me -->
