@@ -30,7 +30,7 @@
         <x-skills />
         {{-- <x-projects /> --}}
         {{-- <x-experience /> --}}
-        {{-- <x-contact /> --}}
+        <x-contact />
     </main>
 
     <x-footer />
