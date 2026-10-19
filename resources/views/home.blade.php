@@ -9,8 +9,8 @@
 </head>
 <body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white font-sans antialiased">
 
-    {{-- <x-navbar /> --}}
-
+    <x-navbar />
+    
     <main>
         <x-hero />
         {{-- <x-skills />
