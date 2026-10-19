@@ -28,8 +28,10 @@
         <x-hero />
         <x-service />
         <x-skills />
+        <x-testimonials />
         {{-- <x-projects /> --}}
         {{-- <x-experience /> --}}
+        <x-blogs />
         <x-contact />
     </main>
 
