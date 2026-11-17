@@ -6,21 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('category'); // Web, Mobile, Robotics
+            $table->string('summary');
             $table->text('description');
-            $table->json('tech_stack'); // Menyimpan array tag misal ["React", "Go"]
-            $table->string('image_url');
-            $table->string('demo_link')->nullable();
-            $table->string('repo_link')->nullable();
+            $table->string('thumbnail_url')->nullable();
+            $table->string('demo_url')->nullable();
+            $table->string('github_url')->nullable();
+            $table->boolean('is_featured')->default(false);
             $table->timestamps();
         });
     }

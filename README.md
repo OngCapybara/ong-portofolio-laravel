@@ -1,59 +1,58 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Website Portofolio — Praktikum Pemrograman Web 2
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+- **Nama:** Ong Azis Saliem
+- **NPM:** [ISI_NPM_KAMU]
+- **Kelas:** [ISI_KELAS_KAMU]
+- **Program Studi:** S1 Informatika — Universitas Teknokrat Indonesia
+- **Repository:** [ong-portofolio-laravel](https://github.com/OngCapybara/ong-portofolio-laravel)
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📌 Latihan 4a (`Lat-4a_SetupLaravel`) — Setup Laravel & Konfigurasi MySQL
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Pilihan Versi PHP & Laravel
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **PHP 8.3+:** Dipilih karena merupakan _sweet spot_ industri dengan keseimbangan optimal antara performa, keamanan, serta pengetatan tipe data (_strict typing_) dan kompatibilitas penuh dengan seluruh dependensi modern[cite: 4, 5].
+- **Laravel 11.x:** Dipilih karena struktur direktori `app/` yang lebih ramping (_slim skeleton_), mendukung pembuatan database otomatis (_auto-creation_) saat menjalankan migrasi, serta siap dikembangkan menjadi RESTful API[cite: 5, 14].
 
-## Learning Laravel
+### 2. Struktur Folder Penting Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+1. **`app/`**: Berisi inti logika aplikasi, mencakup `Http/Controllers/` (pengatur alur _request_) dan `Models/` (representasi tabel database menggunakan Eloquent ORM)[cite: 12].
+2. **`routes/`**: Tempat mendefinisikan jalur URL aplikasi (`web.php` untuk rute tampilan web dan `api.php` untuk _endpoint_ RESTful API)[cite: 13].
+3. **`resources/views/`**: Menyimpan berkas _template_ antarmuka pengguna berbasis Blade (`.blade.php`) beserta komponen modularnya[cite: 13].
+4. **`database/`**: Berisi berkas `migrations/` (skema tabel database), `seeders/` (pengisi data awal), dan `factories/` (generator data _dummy_)[cite: 12, 13].
+5. **`config/` & `.env`**: `config/` mengatur konfigurasi global framework, sedangkan `.env` menyimpan kredensial sensitif lingkungan lokal (koneksi MySQL, `APP_KEY`) yang diisolasi melalui `.gitignore`[cite: 12, 13].
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Perintah Artisan CLI yang Digunakan
 
-## Laravel Sponsors
+1. `php artisan serve` — Menjalankan server pengembangan lokal Laravel (`http://127.0.0.1:8000`)[cite: 18].
+2. `php artisan migrate` — Mengeksekusi seluruh berkas migrasi untuk membuat tabel ke dalam database MySQL[cite: 18].
+3. `php artisan migrate:fresh --seed` — Menghapus seluruh tabel, membangun ulang skema migrasi dari awal, lalu menjalankan _seeder_[cite: 19, 34].
+4. `php artisan config:clear` — Membersihkan _cache_ konfigurasi agar perubahan pada berkas `.env` langsung terbaca oleh sistem[cite: 19].
+5. `php artisan tinker` — Membuka REPL interaktif untuk menguji koneksi database maupun relasi model Eloquent secara langsung[cite: 34].
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 4. Bukti Kartu Identitas & Koneksi Database MySQL
 
-### Premium Partners
+![Screenshot Latihan 4a](public/assets/screenshot-lat4a-1.png)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 📌 Latihan 4b (`Lat-4b_DatabaseModel`) — Desain Database, Model Eloquent & Seeder
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Skema Basis Data (7 Tabel & Relasi Many-to-Many)
 
-## Code of Conduct
+- **`profiles`**: Menyimpan data identitas utama mahasiswa (`full_name`, `headline`, `bio`, `photo_url`, `cv_url`, kontak, dan tautan sosial media)[cite: 34].
+- **`skills`**: Menyimpan daftar keahlian teknis yang dikelompokkan dalam kategori `Frontend`, `Backend`, `Database`, dan `Tools` beserta tingkat penguasaan (`level`)[cite: 34].
+- **`projects`**: Menyimpan daftar karya/proyek portofolio beserta `slug` unik, ringkasan, deskripsi lengkap, tautan demo, GitHub, dan penanda `is_featured`[cite: 34].
+- **`project_skill` (Tabel Pivot)**: Menghubungkan relasi _Many-to-Many_ (`belongsToMany`) antara `projects` dan `skills` menggunakan _foreign key_ (`project_id` & `skill_id`) dengan aturan `cascadeOnDelete()` serta indeks unik komposit[cite: 34].
+- **`experiences`**: Menyimpan lini masa riwayat pendidikan, organisasi, magang, maupun pekerjaan (`type`, `start_date`, `end_date`, `is_current`)[cite: 34].
+- **`certificates`**: Menyimpan daftar sertifikasi dan penghargaan beserta lembaga penerbit (`issuer`), tanggal terbit, dan tautan kredensial[cite: 34].
+- **`messages`**: Menyimpan pesan masuk dari formulir kontak pengunjung dengan status baca (`is_read`) dan proteksi _mass assignment_ `$fillable`[cite: 34].
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Bukti Eksekusi Database & Pengujian Relasi Tinker
 
-## Security Vulnerabilities
+**Struktur & Data Tabel di Database MySQL:**
+![Screenshot Database MySQL](public/assets/screenshot-lat4b-db.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Pengujian Relasi Many-to-Many via Artisan Tinker:**
+![Screenshot Artisan Tinker](public/assets/screenshot-lat4b-tinker.png)
