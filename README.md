@@ -33,7 +33,12 @@
 
 ### 4. Bukti Kartu Identitas & Koneksi Database MySQL
 
-![Screenshot Latihan 4a](public/assets/screenshot-lat4a-1.png)
+![Screenshot Latihan 4a - 1](public/assets/screenshot-lat4a-1.png)
+![Screenshot Latihan 4a - 2](public/assets/screenshot-lat4a-2.png)
+![Screenshot Latihan 4a - 3](public/assets/screenshot-lat4a-3.png)
+![Screenshot Latihan 4a - 4](public/assets/screenshot-lat4a-4.png)
+![Screenshot Latihan 4a - 5](public/assets/screenshot-lat4a-5.png)
+![Screenshot Tabel Database](public/assets/screenshot-lat4a-table.png)
 
 ---
 
