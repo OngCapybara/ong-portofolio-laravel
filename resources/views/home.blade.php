@@ -42,8 +42,8 @@
     <div style="position:fixed; bottom:20px; right:20px; background: #1e40af; color:white; padding: 16px 24px; border-radius: 12px; font-family: sans-serif; font-size:14px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 50;">
         <strong>Identitas Pengembang</strong><br>
         Nama &nbsp;: Ong Azis Saliem<br>
-        NIM &nbsp; &nbsp;: [ISI_NPM_KAMU]<br>
-        Kelas &nbsp;: [ISI_KELAS_KAMU]<br>
+        NIM &nbsp; &nbsp;: 24312043<br>
+        Kelas &nbsp;: IF 24 CX<br>
         ✔ Status: Laravel {{ app()->version() }} Berjalan<br>
         ✔ DB &nbsp; &nbsp; &nbsp;: {{ DB::connection()->getDatabaseName() }} Terhubung
     </div>
