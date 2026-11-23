@@ -19,12 +19,12 @@
 ![Screenshot Widget API Status](public/assets/Screenshot-Lat-5a-widget.png)
 
 **Pengujian Endpoint GET Sukses (`200 OK`):**
-![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-pofile.png)
-![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-skills.png)
-![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-experience.png)
-![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-certificate.png)
-![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-project.png)
-![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-project_aktif.png)
+![Screenshot Pengujian API 200 OK](public/assets/Screenshot-Lat-5a-pofile.png)
+![Screenshot Pengujian API 200 OK](public/assets/Screenshot-Lat-5a-skills.png)
+![Screenshot Pengujian API 200 OK](public/assets/Screenshot-Lat-5a-experience.png)
+![Screenshot Pengujian API 200 OK](public/assets/Screenshot-Lat-5a-certificate.png)
+![Screenshot Pengujian API 200 OK](public/assets/Screenshot-Lat-5a-project.png)
+![Screenshot Pengujian API 200 OK](public/assets/Screenshot-Lat-5a-project_aktif.png)
 
 **Pengujian Error Handling Slug Tidak Valid (`404 Not Found`):**
 ![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-slug_palsu.png)
