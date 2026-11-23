@@ -27,4 +27,4 @@
 ![Screenshot Pengujian API 200 OK](public/assets/Screenshot-Lat-5a-project_aktif.png)
 
 **Pengujian Error Handling Slug Tidak Valid (`404 Not Found`):**
-![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-slug_palsu.png)
+![Screenshot Pengujian API 200 OK](public/assets/Screenshot-Lat-5a-slug_palsu.png)
