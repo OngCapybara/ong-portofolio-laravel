@@ -16,10 +16,15 @@
 
 ### 4. Bukti Panel Status API & Pengujian Endpoint (Postman / Thunder Client)
 **Panel API Status pada Halaman Utama:**
-![Screenshot Widget API Status](public/assets/screenshot-lat5a-widget.png)
+![Screenshot Widget API Status](public/assets/Screenshot-Lat-5a-widget.png)
 
 **Pengujian Endpoint GET Sukses (`200 OK`):**
-![Screenshot Pengujian API 200 OK](public/assets/screenshot-lat5a-api-200.png)
+![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-pofile.png)
+![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-skills.png)
+![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-experience.png)
+![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-certificate.png)
+![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-project.png)
+![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-project_aktif.png)
 
 **Pengujian Error Handling Slug Tidak Valid (`404 Not Found`):**
-![Screenshot Pengujian API 404 Not Found](public/assets/screenshot-lat5a-api-404.png)
+![Screenshot Pengujian API 200 OK](public/assets/public/assets/Screenshot-Lat-5a-slug_palsu.png)
