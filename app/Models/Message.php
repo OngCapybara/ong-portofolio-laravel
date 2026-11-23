@@ -9,5 +9,14 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sender_name', 'sender_email', 'subject', 'body'];
+    protected $fillable = [
+        'sender_name',
+        'sender_email',
+        'subject',
+        'body',
+    ];
+
+    protected $casts = [
+        'is_read' => 'boolean',
+    ];
 }

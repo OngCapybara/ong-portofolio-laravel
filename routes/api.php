@@ -15,4 +15,7 @@ Route::prefix('portfolio')->group(function () {
     Route::get('/projects/{slug}', [PortfolioController::class, 'projectDetail']);
     Route::get('/experiences',     [PortfolioController::class, 'experiences']);
     Route::get('/certificates',    [PortfolioController::class, 'certificates']);
+    
+    Route::post('/messages', [PortfolioController::class, 'storeMessage'])
+        ->middleware('throttle:5,1');
 });

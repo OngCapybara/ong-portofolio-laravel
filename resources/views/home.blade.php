@@ -54,9 +54,9 @@
             '/api/portfolio/profile',
             '/api/portfolio/skills',
             '/api/portfolio/projects',
-            '/api/portfolio/projects/jaganetra-ai-room-security-cctv',
             '/api/portfolio/experiences',
             '/api/portfolio/certificates',
+            '/api/portfolio/messages',
         ] as $endpoint)
         <div>
             <span style="color:#fbbf24;">GET</span>
