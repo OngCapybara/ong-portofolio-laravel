@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $blogs = Blog::latest()->take(3)->get();
     $projects = Project::latest()->get();
-    $awards = Award::latest()->get();
+    $awards = \App\Models\Certificate::latest()->get();
 
     return view('home', compact('blogs', 'projects', 'awards'));
 });

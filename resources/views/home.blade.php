@@ -38,14 +38,32 @@
 
     <x-footer />
 
-    <!-- Kartu Identitas Mahasiswa & Verifikasi Database (Latihan 4a) -->
-    <div style="position:fixed; bottom:20px; right:20px; background: #1e40af; color:white; padding: 16px 24px; border-radius: 12px; font-family: sans-serif; font-size:14px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 50;">
-        <strong>Identitas Pengembang</strong><br>
-        Nama &nbsp;: Ong Azis Saliem<br>
-        NIM &nbsp; &nbsp;: 24312043<br>
-        Kelas &nbsp;: IF 24 CX<br>
-        ✔ Status: Laravel {{ app()->version() }} Berjalan<br>
-        ✔ DB &nbsp; &nbsp; &nbsp;: {{ DB::connection()->getDatabaseName() }} Terhubung
+    <!-- Panel Status API — Bukti Pengerjaan Latihan 5a -->
+    <div style="position:fixed; bottom:20px; right:20px; z-index:9999; background:#0f172a; color:#f1f5f9;
+                padding:18px 22px; border-radius:12px; font-family:monospace; font-size:12px;
+                border:1px solid #334155; box-shadow: 0 8px 28px rgba(0,0,0,0.45); max-width: 340px; line-height:1.7;">
+        <div style="color:#38bdf8; font-weight:bold; font-size:13px; margin-bottom:6px;">
+            🚀 API Status — Latihan 5a
+        </div>
+        <div>🎓 <strong>Ong Azis Saliem</strong></div>
+        <div>🆔 NPM: <strong>24312043</strong></div>
+        <div>📦 Laravel: <strong>{{ app()->version() }}</strong></div>
+        <hr style="border-color:#334155; margin:8px 0;">
+        <div style="color:#86efac; font-size:11px; font-weight:bold; margin-bottom:4px;">ENDPOINT AKTIF:</div>
+        @foreach([
+            '/api/portfolio/profile',
+            '/api/portfolio/skills',
+            '/api/portfolio/projects',
+            '/api/portfolio/projects/jaganetra-ai-room-security-cctv',
+            '/api/portfolio/experiences',
+            '/api/portfolio/certificates',
+        ] as $endpoint)
+        <div>
+            <span style="color:#fbbf24;">GET</span>
+            <a href="{{ url($endpoint) }}" target="_blank"
+               style="color:#93c5fd; text-decoration:none;">{{ $endpoint }}</a>
+        </div>
+        @endforeach
     </div>
 
 </body>
