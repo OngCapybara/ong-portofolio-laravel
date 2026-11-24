@@ -8,7 +8,7 @@
 
             <div class="relative z-10 grid md:grid-cols-2 gap-12 items-start">
 
-                <!-- Sisi Kiri: Informasi Sosial / Teks -->
+                <!-- Sisi Kiri: Informasi Sosial + Widget GitHub API Publik -->
                 <div>
                     <p class="text-xs font-medium text-sky-500 tracking-widest uppercase mb-3">Get in touch</p>
                     <h2 class="font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-5">
@@ -19,7 +19,7 @@
                     </p>
 
                     <!-- Tautan Kontak Sosial -->
-                    <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-4 mb-8">
                         <a href="mailto:ongazissaliem.sama@gmail.com" class="group flex items-center gap-3 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">
                             <span class="w-9 h-9 flex items-center justify-center bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg group-hover:bg-sky-500/10 dark:group-hover:bg-sky-500/20 group-hover:border-sky-500/50 transition-colors shrink-0">
                                 <svg class="w-4 h-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -56,68 +56,80 @@
                             <span class="text-sm">github.com/OngCapybara</span>
                         </a>
                     </div>
+
+                    <!-- Widget Statistik GitHub Eksternal (Live dari GitHub REST API) -->
+                    <div id="github-stats-container"></div>
                 </div>
 
-                <!-- Sisi Kanan: Form Pengiriman Email -->
+                <!-- Sisi Kanan: Form Kontak Dinamis (POST /api/portfolio/messages) -->
                 <div>
-                    <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                    <!-- Kotak Toast Notifikasi Global -->
+                    <div id="toast-notification" class="hidden mb-6 p-4 rounded-xl text-sm font-medium transition-all duration-300"></div>
+
+                    <form id="contact-form" novalidate>
                         <div class="flex flex-col gap-4">
 
                             <div class="grid sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="fname" class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Name <span aria-hidden="true">*</span></label>
+                                    <label for="sender_name" class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Name <span aria-hidden="true">*</span></label>
                                     <input
                                         type="text"
-                                        id="fname"
-                                        name="user_name"
+                                        id="sender_name"
+                                        name="sender_name"
                                         placeholder="Your Name"
-                                        required
                                         autocomplete="name"
                                         class="w-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:border-sky-500 transition-colors"
                                     />
+                                    <p id="error-sender_name" class="text-xs text-red-500 mt-1.5 hidden"></p>
                                 </div>
                                 <div>
-                                    <label for="femail" class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Email <span aria-hidden="true">*</span></label>
+                                    <label for="sender_email" class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Email <span aria-hidden="true">*</span></label>
                                     <input
                                         type="email"
-                                        id="femail"
-                                        name="user_email"
+                                        id="sender_email"
+                                        name="sender_email"
                                         placeholder="your@email.com"
-                                        required
                                         autocomplete="email"
                                         class="w-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:border-sky-500 transition-colors"
                                     />
+                                    <p id="error-sender_email" class="text-xs text-red-500 mt-1.5 hidden"></p>
                                 </div>
                             </div>
 
                             <div>
-                                <label for="fsubject" class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Subject</label>
+                                <label for="subject" class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Subject <span aria-hidden="true">*</span></label>
                                 <input
                                     type="text"
-                                    id="fsubject"
+                                    id="subject"
                                     name="subject"
                                     placeholder="Project inquiry"
                                     class="w-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:border-sky-500 transition-colors"
                                 />
+                                <p id="error-subject" class="text-xs text-red-500 mt-1.5 hidden"></p>
                             </div>
 
                             <div>
-                                <label for="fmessage" class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Message <span aria-hidden="true">*</span></label>
+                                <label for="body" class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Message <span aria-hidden="true">*</span></label>
                                 <textarea
-                                    id="fmessage"
-                                    name="message"
+                                    id="body"
+                                    name="body"
                                     rows="4"
-                                    placeholder="Tell me about your project..."
-                                    required
+                                    placeholder="Tell me about your project (min. 10 characters)..."
                                     class="w-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:border-sky-500 transition-colors resize-none"
                                 ></textarea>
+                                <p id="error-body" class="text-xs text-red-500 mt-1.5 hidden"></p>
                             </div>
 
                             <button
                                 type="submit"
-                                class="shimmer w-full bg-sky-500 hover:bg-sky-600 text-white font-display font-bold text-sm py-3.5 rounded-xl transition-colors active:scale-[0.98]"
+                                id="btn-submit-message"
+                                class="shimmer w-full bg-sky-500 hover:bg-sky-600 text-white font-display font-bold text-sm py-3.5 rounded-xl transition-colors active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                             >
-                                Send message →
+                                <span id="btn-text">Send message →</span>
+                                <svg id="btn-spinner" class="animate-spin h-4 w-4 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
                             </button>
 
                         </div>
@@ -128,33 +140,3 @@
         </div>
     </div>
 </section>
-
-<!-- SweetAlert2 CDN -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-    function handleFormSubmit(e) {
-        e.preventDefault();
-
-        Swal.fire({
-            title: "Sending Message...",
-            text: "Mohon tunggu sebentar ya!",
-            allowOutsideClick: false,
-            showConfirmButton: false,
-            willOpen: () => {
-                Swal.showLoading();
-            },
-        });
-
-        setTimeout(() => {
-            Swal.fire({
-                icon: "success",
-                title: "Berhasil Terkirim!",
-                text: "Pesanmu sudah sampai di email Ong. Have a nice day! :D",
-                confirmButtonColor: "#0ea5e9",
-                timer: 3000,
-            });
-            document.getElementById("contactForm").reset();
-        }, 1200);
-    }
-</script>

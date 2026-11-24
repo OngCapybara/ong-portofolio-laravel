@@ -40,6 +40,7 @@
     ];
 @endphp
 
+
 <section id="about" class="py-24 bg-zinc-50 dark:bg-zinc-900/40 text-zinc-900 dark:text-zinc-100">
     <div class="max-w-6xl mx-auto px-6">
         <div class="grid md:grid-cols-2 gap-16 items-start">
@@ -56,7 +57,7 @@
                 </div>
             </div>
 
-            <!-- Sisi Kanan: Deskripsi Profil & 4 Kategori Skill -->
+             <!-- Sisi Kanan: Deskripsi Profil & 4 Kategori Skill (Dinamis via Fetch API) -->
             <div class="order-1 md:order-2">
                 <p class="text-xs font-medium text-sky-500 tracking-widest uppercase mb-3">About me</p>
                 <h2 class="font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6">
@@ -75,26 +76,8 @@
                         Technical Skills &amp; Tools
                     </p>
 
-                    <div class="grid sm:grid-cols-2 gap-5">
-                        @foreach ($skillCategories as $cat)
-                            <div class="bg-white dark:bg-zinc-900/80 p-4 rounded-2xl border border-zinc-200/70 dark:border-zinc-800">
-                                <span class="text-xs font-bold text-sky-500 uppercase tracking-wider block mb-3">
-                                    {{ $cat['category'] }}
-                                </span>
-                                <div class="flex flex-wrap gap-2" role="list" aria-label="{{ $cat['category'] }} Skills">
-                                    @foreach ($cat['items'] as $tech)
-                                        <span
-                                            role="listitem"
-                                            class="stag inline-flex items-center gap-1.5 text-xs font-medium bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full hover:border-sky-500 dark:hover:border-sky-500 transition-colors duration-200 cursor-default"
-                                        >
-                                            <i class="{{ $tech['icon'] }} text-sky-500 text-[11px]" aria-hidden="true"></i>
-                                            {{ $tech['name'] }}
-                                        </span>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                    <!-- Target Kontainer Dinamis Fetch API -->
+                    <div id="skills-container" class="grid sm:grid-cols-2 gap-5"></div>
                 </div>
             </div>
 

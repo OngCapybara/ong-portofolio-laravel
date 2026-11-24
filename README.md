@@ -1,21 +1,20 @@
 ---
 
-## 📌 Latihan 5b (`Lat-5b_RestAPI_POST`) — RESTful API POST Endpoint & Validasi FormRequest
+## 📌 Latihan 6 (`Lat-6_FetchIntegrasi`) — Integrasi Frontend & Backend via Asynchronous Fetch API
 
-### 1. Arsitektur Validasi & Keamanan Endpoint
+### 1. Fitur Utama yang Diimplementasikan (`public/js/portfolio.js`)
+- **Dynamic Rendering (`GET`):** Mengambil data *Skills*, *Projects*, dan *Certificates* dari endpoint `/api/portfolio/...` secara asinkron menggunakan `async/await` dan `fetch()` dengan header `Accept: application/json`.
+- **State Management UX:** Menerapkan *Shimmer Skeleton Loading* (`animate-pulse`), *Empty State*, *Error State*, serta gambar cadangan otomatis (`onerror` fallback).
+- **Debounced Live Search:** Input pencarian pada bagian proyek menyaring judul, ringkasan, maupun teknologi dengan jeda `debounce(400ms)` agar bebas *lag*.
+- **Asynchronous Contact Form (`POST`):** Mengirim payload JSON ke `POST /api/portfolio/messages`, menampilkan *spinner* pada tombol saat proses berjalan, menangkap kegagalan validasi **`HTTP 422 Unprocessable Entity`** secara *inline* di bawah masing-masing input, dan menampilkan notifikasi *toast* sukses **`HTTP 201 Created`**.
+- **Integrasi GitHub REST API Publik:** Menarik avatar, jumlah repositori publik, dan jumlah *followers* dari `https://api.github.com/users/OngCapybara`.
 
-- **Endpoint:** `POST /api/portfolio/messages`
-- **Form Request Validation (`StoreMessageRequest`):** Memisahkan logika otorisasi (`authorize(): true`) dan validasi input (`required`, `email:rfc,dns`, batasan panjang `min`/`max`) dari controller. Jika validasi gagal, sistem otomatis mengembalikan JSON berstatus **`422 Unprocessable Entity`** dengan pesan kesalahan Bahasa Indonesia.
-- **Sanitasi & Keamanan Data:** Menggunakan `$request->validated()`, pembersihan tag HTML via `strip_tags()` untuk mencegah _Stored XSS_, pembatasan `$fillable` pada model `Message` agar kolom `is_read` tidak dapat dimanipulasi klien, serta proteksi _Rate Limiting_ `throttle:5,1` (maksimal 5 request per menit)[cite: 4].
-- **Standar HTTP Status `201 Created`:** Mengembalikan kode status `201` beserta payload data baru saat pesan berhasil disimpan ke MySQL[cite: 4].
+### 2. Bukti Pengujian Visual
+**1. Shimmer Loading Skeleton State:**
+![Screenshot Shimmer Skeleton](public/assets/screenshot-lat6-skeleton.png)
 
-### 2. Bukti Pengujian Postman & Database MySQL
+**2. Penanganan Validasi Form Inline (`422 Unprocessable Entity`):**
+![Screenshot Validasi Form 422](public/assets/screenshot-lat6-422.png)
 
-**Skenario Negatif — Validasi Gagal (`422 Unprocessable Entity`):**
-![Screenshot Postman 422](public/assets/Screenshot-Lat-5a-test_message.png)
-
-**Skenario Positif — Pesan Berhasil Tersimpan (`201 Created`):**
-![Screenshot Postman 201](public/assets/Screenshot-Lat-5a-post.png)
-
-**Verifikasi Data Masuk di Tabel `messages` MySQL:**
-![Screenshot Database Messages](public/assets/Screenshot-Lat-5a-table.png)
+**3. Pengiriman Pesan Sukses (`201 Created` Toast) & Widget GitHub API:**
+![Screenshot Sukses 201 dan GitHub Widget](public/assets/screenshot-lat6-201.png)

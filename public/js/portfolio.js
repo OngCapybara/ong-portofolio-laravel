@@ -6,6 +6,7 @@
 const API_BASE_URL = '/api/portfolio';
 
 // 1. Helper Loading Skeleton (Shimmer UI)
+// 1. Helper Loading Skeleton (Shimmer UI)
 function renderSkeleton(containerId, count = 3, cardType = 'project') {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -14,25 +15,37 @@ function renderSkeleton(containerId, count = 3, cardType = 'project') {
     for (let i = 0; i < count; i++) {
         if (cardType === 'skill') {
             skeletonHTML += `
-                <div class="animate-pulse bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex items-center space-x-3">
-                    <div class="rounded-lg bg-slate-200 dark:bg-slate-700 h-10 w-10"></div>
-                    <div class="flex-1 space-y-2">
-                        <div class="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4"></div>
-                        <div class="h-3 bg-slate-100 dark:bg-slate-600 rounded w-1/2"></div>
+                <div class="animate-pulse bg-white dark:bg-zinc-900/80 p-4 rounded-2xl border border-zinc-200/70 dark:border-zinc-800 space-y-3">
+                    <div class="h-3 bg-zinc-200 dark:bg-zinc-700 rounded w-1/3"></div>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="h-7 bg-zinc-200 dark:bg-zinc-700 rounded-full w-24"></div>
+                        <div class="h-7 bg-zinc-200 dark:bg-zinc-700 rounded-full w-20"></div>
+                        <div class="h-7 bg-zinc-200 dark:bg-zinc-700 rounded-full w-28"></div>
+                    </div>
+                </div>
+            `;
+        } else if (cardType === 'certificate') {
+            skeletonHTML += `
+                <div class="animate-pulse flex items-start gap-4 bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200/70 dark:border-zinc-800">
+                    <div class="w-12 h-12 rounded-xl bg-zinc-200 dark:bg-zinc-800 shrink-0"></div>
+                    <div class="flex-1 space-y-2.5">
+                        <div class="h-3 bg-zinc-200 dark:bg-zinc-800 rounded w-14"></div>
+                        <div class="h-4 bg-zinc-200 dark:bg-zinc-800 rounded w-5/6"></div>
+                        <div class="h-3 bg-zinc-200/70 dark:bg-zinc-800/70 rounded w-2/3"></div>
                     </div>
                 </div>
             `;
         } else {
             skeletonHTML += `
-                <div class="animate-pulse bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
-                    <div class="bg-slate-200 dark:bg-slate-700 h-44 w-full"></div>
-                    <div class="p-5 space-y-3">
-                        <div class="h-5 bg-slate-200 dark:bg-slate-700 rounded w-2/3"></div>
-                        <div class="h-3 bg-slate-100 dark:bg-slate-600 rounded w-full"></div>
-                        <div class="h-3 bg-slate-100 dark:bg-slate-600 rounded w-4/5"></div>
+                <div class="animate-pulse bg-zinc-50 dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+                    <div class="bg-zinc-200 dark:bg-zinc-800 aspect-video w-full"></div>
+                    <div class="p-6 space-y-3">
+                        <div class="h-5 bg-zinc-200 dark:bg-zinc-800 rounded w-3/4"></div>
+                        <div class="h-3 bg-zinc-200/70 dark:bg-zinc-800/70 rounded w-full"></div>
+                        <div class="h-3 bg-zinc-200/70 dark:bg-zinc-800/70 rounded w-5/6"></div>
                         <div class="pt-2 flex gap-2">
-                            <div class="h-6 bg-slate-200 dark:bg-slate-700 rounded-full w-14"></div>
-                            <div class="h-6 bg-slate-200 dark:bg-slate-700 rounded-full w-16"></div>
+                            <div class="h-6 bg-zinc-200 dark:bg-zinc-800 rounded-full w-16"></div>
+                            <div class="h-6 bg-zinc-200 dark:bg-zinc-800 rounded-full w-20"></div>
                         </div>
                     </div>
                 </div>
@@ -42,12 +55,13 @@ function renderSkeleton(containerId, count = 3, cardType = 'project') {
     container.innerHTML = skeletonHTML;
 }
 
+
 // 2. Fetch & Render Skills (GET /api/portfolio/skills)
 async function loadSkills() {
     const container = document.getElementById('skills-container');
     if (!container) return;
 
-    renderSkeleton('skills-container', 8, 'skill');
+    renderSkeleton('skills-container', 4, 'skill');
 
     try {
         const response = await fetch(`${API_BASE_URL}/skills`, {
@@ -59,34 +73,53 @@ async function loadSkills() {
         const skills = result.data || [];
 
         if (skills.length === 0) {
-            container.innerHTML = `<p class="col-span-full text-center text-slate-500 py-6">Belum ada keahlian yang ditambahkan ke database.</p>`;
+            container.innerHTML = `<p class="col-span-full text-center text-zinc-500 py-6 text-sm">Belum ada keahlian yang ditambahkan ke database.</p>`;
             return;
         }
 
-        container.innerHTML = skills.map(skill => `
-            <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-all duration-300 flex items-center space-x-3 group">
-                <div class="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                    ${skill.icon ? `<i class="${skill.icon}"></i>` : skill.name.charAt(0).toUpperCase()}
-                </div>
-                <div>
-                    <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-sm sm:text-base">${skill.name}</h3>
-                    <div class="flex items-center gap-1.5 mt-0.5">
-                        <span class="text-[11px] text-slate-500 dark:text-slate-400">${skill.category}</span>
-                        <span class="text-slate-300 dark:text-slate-600">•</span>
-                        <span class="inline-block px-2 py-0.5 text-[11px] rounded-full font-medium ${
-                            skill.level === 'Advanced' ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300' :
-                            'bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300'
-                        }">
-                            ${skill.level || 'Intermediate'}
+        // Kelompokkan skills berdasarkan kategori (Frontend, Backend, Database, Tools)
+        const grouped = skills.reduce((acc, skill) => {
+            const cat = skill.category || 'Lainnya';
+            if (!acc[cat]) acc[cat] = [];
+            acc[cat].push(skill);
+            return acc;
+        }, {});
+
+        const categoryOrder = ['Frontend', 'Backend', 'Database', 'Tools'];
+        const sortedCategories = Object.keys(grouped).sort((a, b) => {
+            const idxA = categoryOrder.indexOf(a);
+            const idxB = categoryOrder.indexOf(b);
+            return (idxA === -1 ? 99 : idxA) - (idxB === -1 ? 99 : idxB);
+        });
+
+        container.innerHTML = sortedCategories.map(category => `
+            <div class="bg-white dark:bg-zinc-900/80 p-4 rounded-2xl border border-zinc-200/70 dark:border-zinc-800">
+                <span class="text-xs font-bold text-sky-500 uppercase tracking-wider block mb-3">
+                    ${category}
+                </span>
+                <div class="flex flex-wrap gap-2" role="list" aria-label="${category} Skills">
+                    ${grouped[category].map(tech => `
+                        <span
+                            role="listitem"
+                            title="Level: ${tech.level || 'Intermediate'}"
+                            class="stag inline-flex items-center gap-1.5 text-xs font-medium bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-full hover:border-sky-500 dark:hover:border-sky-500 transition-colors duration-200 cursor-default"
+                        >
+                            <i class="${tech.icon || 'fa-solid fa-code'} text-sky-500 text-[11px]" aria-hidden="true"></i>
+                            <span>${tech.name}</span>
+                            <span class="text-[10px] px-1.5 py-0.2 rounded-full ${
+                                tech.level === 'Advanced'
+                                    ? 'bg-sky-500/15 text-sky-500'
+                                    : 'bg-zinc-200/70 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400'
+                            }">${tech.level || 'Intermediate'}</span>
                         </span>
-                    </div>
+                    `).join('')}
                 </div>
             </div>
         `).join('');
     } catch (error) {
         console.error('Gagal memuat skills:', error);
         container.innerHTML = `
-            <div class="col-span-full bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 p-4 rounded-lg text-center text-sm">
+            <div class="col-span-full bg-red-500/10 border border-red-500/30 text-red-500 p-4 rounded-xl text-center text-xs">
                 Gagal memuat data keahlian dari server. Pastikan server Laravel aktif.
             </div>
         `;
@@ -128,67 +161,82 @@ function renderProjectCards(projects) {
 
     if (projects.length === 0) {
         container.innerHTML = `
-            <div class="col-span-full text-center py-12 bg-white dark:bg-slate-800 rounded-xl border border-dashed border-slate-300 dark:border-slate-700">
-                <p class="text-slate-500 dark:text-slate-400 font-medium">Tidak ada proyek yang sesuai dengan kriteria pencarian.</p>
+            <div class="col-span-full text-center py-12 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-800">
+                <p class="text-zinc-500 dark:text-zinc-400 text-sm font-medium">Tidak ada proyek yang sesuai dengan kriteria pencarian.</p>
             </div>
         `;
         return;
     }
 
-    const fallbackImg = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=640&q=80';
-
     container.innerHTML = projects.map(project => {
         const skillsList = Array.isArray(project.skills) ? project.skills : [];
+        const fallbackImg = `https://placehold.co/640x360/09090b/0ea5e9?text=${encodeURIComponent(project.title)}`;
         const projectImg = project.thumbnail_url || fallbackImg;
+        const demoUrl = project.demo_url || project.github_url || 'https://github.com/OngCapybara';
+        const githubUrl = project.github_url || 'https://github.com/OngCapybara';
 
         return `
-            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col group">
-                <div class="relative overflow-hidden h-48 bg-slate-100 dark:bg-slate-900">
+            <article class="group bg-zinc-50 dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-sky-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+
+                <!-- Thumbnail 16:9 + Fallback onerror -->
+                <div class="relative w-full aspect-video overflow-hidden bg-zinc-200 dark:bg-zinc-800">
                     <img
                         src="${projectImg}"
                         alt="${project.title}"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
                         onerror="this.onerror=null;this.src='${fallbackImg}';"
-                    >
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                     ${project.is_featured ? `
-                        <div class="absolute top-3 right-3 bg-indigo-600/95 backdrop-blur-sm px-2.5 py-1 rounded-md text-xs font-semibold text-white shadow-sm">
+                        <span class="absolute top-3 right-3 bg-sky-500/95 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-sm">
                             Featured
-                        </div>
+                        </span>
                     ` : ''}
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                            ${project.title}
-                        </h3>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm line-clamp-3 mb-4 leading-relaxed">
-                            ${project.summary || project.description || 'Deskripsi proyek belum diisi.'}
-                        </p>
+
+                <!-- Content -->
+                <div class="p-6 flex flex-col flex-1">
+                    <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2.5 group-hover:text-sky-500 transition-colors">
+                        ${project.title}
+                    </h3>
+
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-5 line-clamp-3">
+                        ${project.summary || project.description || 'Deskripsi proyek belum diisi.'}
+                    </p>
+
+                    <!-- Tech Badges -->
+                    <div class="flex flex-wrap gap-2 mb-6 mt-auto">
+                        ${skillsList.map(skill => `
+                            <span class="text-xs bg-sky-50 dark:bg-zinc-800 text-sky-600 dark:text-sky-400 border border-sky-200/70 dark:border-zinc-700 px-2.5 py-1 rounded-full font-medium">
+                                #${skill.name.replace(/\s+/g, '')}
+                            </span>
+                        `).join('')}
                     </div>
-                    <div>
-                        <div class="flex flex-wrap gap-1.5 mb-5">
-                            ${skillsList.map(skill => `
-                                <span class="px-2.5 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs rounded-md font-medium">
-                                    ${skill.name}
-                                </span>
-                            `).join('')}
-                        </div>
-                        <div class="flex items-center gap-3 pt-3 border-t border-slate-100 dark:border-slate-700">
-                            ${project.demo_url ? `
-                                <a href="${project.demo_url}" target="_blank" rel="noopener noreferrer" class="flex-1 text-center py-2 px-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg transition-colors">
-                                    Lihat Demo
-                                </a>
-                            ` : ''}
-                            ${project.github_url ? `
-                                <a href="${project.github_url}" target="_blank" rel="noopener noreferrer" class="flex-1 text-center py-2 px-3 border border-slate-200 dark:border-slate-600 hover:border-slate-400 rounded-lg text-slate-700 dark:text-slate-200 text-xs font-semibold transition-colors inline-flex items-center justify-center gap-1.5">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                                    Source Code
-                                </a>
-                            ` : ''}
-                        </div>
+
+                    <!-- Action Links -->
+                    <div class="flex items-center gap-3 pt-4 border-t border-zinc-200/70 dark:border-zinc-800">
+                        <a
+                            href="${demoUrl}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex-1 inline-flex items-center justify-center gap-1.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-semibold py-2.5 px-4 rounded-xl transition-colors"
+                        >
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[11px]" aria-hidden="true"></i>
+                            Live Demo
+                        </a>
+                        <a
+                            href="${githubUrl}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex-1 inline-flex items-center justify-center gap-1.5 bg-white dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700 text-xs font-semibold py-2.5 px-4 rounded-xl transition-colors"
+                        >
+                            <i class="fa-brands fa-github text-sm" aria-hidden="true"></i>
+                            GitHub
+                        </a>
                     </div>
                 </div>
-            </div>
+
+            </article>
         `;
     }).join('');
 }
@@ -220,7 +268,7 @@ async function loadCertificates() {
     const container = document.getElementById('certificates-container');
     if (!container) return;
 
-    renderSkeleton('certificates-container', 2, 'project');
+    renderSkeleton('certificates-container', 3, 'certificate');
 
     try {
         const response = await fetch(`${API_BASE_URL}/certificates`, {
@@ -232,30 +280,47 @@ async function loadCertificates() {
         const certs = result.data || [];
 
         if (certs.length === 0) {
-            container.innerHTML = `<p class="col-span-full text-center text-slate-500 py-6">Belum ada sertifikat.</p>`;
+            container.innerHTML = `<p class="col-span-full text-center text-zinc-500 py-6 text-sm">Belum ada sertifikat yang ditambahkan.</p>`;
             return;
         }
 
-        container.innerHTML = certs.map(cert => `
-            <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-start justify-between gap-3 mb-2">
-                    <h3 class="font-bold text-slate-800 dark:text-slate-100">${cert.title}</h3>
-                    <span class="text-xs px-2.5 py-1 bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-semibold rounded shrink-0">
-                        ${cert.issued_date || 'Terverifikasi'}
-                    </span>
-                </div>
-                <p class="text-sm font-medium text-indigo-600 dark:text-indigo-400 mb-2">${cert.issuer}</p>
-                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3">${cert.description || ''}</p>
-                ${cert.credential_url ? `
-                    <a href="${cert.credential_url}" target="_blank" rel="noopener noreferrer" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline font-semibold inline-flex items-center gap-1">
-                        Lihat Kredensial ↗
-                    </a>
-                ` : ''}
-            </div>
-        `).join('');
+        container.innerHTML = certs.map(cert => {
+            const year = cert.issued_date ? String(cert.issued_date).substring(0, 4) : 'Terverifikasi';
+
+            return `
+                <article class="group flex items-start gap-4 bg-zinc-50 dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200/70 dark:border-zinc-800 hover:border-sky-500 hover:shadow-lg transition-all duration-300">
+                    <!-- Badge Icon -->
+                    <div class="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-500 shrink-0 group-hover:bg-sky-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-award text-lg" aria-hidden="true"></i>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="flex-1 min-w-0">
+                        <span class="inline-block text-xs font-semibold text-sky-500 mb-1">
+                            ${year}
+                        </span>
+                        <h3 class="font-display font-bold text-base text-zinc-900 dark:text-white leading-snug mb-1.5 group-hover:text-sky-500 transition-colors">
+                            ${cert.title}
+                        </h3>
+                        <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-2">
+                            ${cert.issuer}
+                        </p>
+                        ${cert.credential_url ? `
+                            <a href="${cert.credential_url}" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-sky-500 hover:underline inline-flex items-center gap-1">
+                                Lihat Kredensial ↗
+                            </a>
+                        ` : ''}
+                    </div>
+                </article>
+            `;
+        }).join('');
     } catch (error) {
         console.error('Gagal memuat sertifikat:', error);
-        container.innerHTML = `<p class="col-span-full text-center text-red-500 py-4 text-sm">Gagal memuat data sertifikat.</p>`;
+        container.innerHTML = `
+            <div class="col-span-full bg-red-500/10 border border-red-500/30 text-red-500 p-4 rounded-xl text-center text-xs">
+                Gagal memuat data sertifikat dari server.
+            </div>
+        `;
     }
 }
 
