@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio - Ong Azis Saliem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -12,13 +13,9 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
-
-    <!-- Alpine.js CDN -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @vite('resources/css/app.css')
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white font-sans antialiased">
 
@@ -56,7 +53,6 @@
             '/api/portfolio/projects',
             '/api/portfolio/experiences',
             '/api/portfolio/certificates',
-            '/api/portfolio/messages',
         ] as $endpoint)
         <div>
             <span style="color:#fbbf24;">GET</span>
@@ -66,5 +62,7 @@
         @endforeach
     </div>
 
+    <!-- Script Integrasi Fetch API (Diletakkan di bawah agar DOM sudah siap) -->
+    <script src="{{ asset('js/portfolio.js') }}"></script>
 </body>
 </html>
