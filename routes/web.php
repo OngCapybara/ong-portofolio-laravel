@@ -11,3 +11,11 @@ Route::get('/', function () {
 
     return view('home', compact('blogs', 'projects', 'awards'));
 });
+
+Route::get('/admin/login', function () {
+    return view('admin.login');
+})->name('admin.login');
+
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard');
